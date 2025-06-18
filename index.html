@@ -1,0 +1,256 @@
+
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Nhập Vai A.I Simulator</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@300;400;600;700;800&display=swap" rel="stylesheet">
+  <script>
+    tailwind.config = {
+      darkMode: 'class', // or 'media'
+      theme: {
+        extend: {
+          fontFamily: {
+            sans: ['Nunito', 'sans-serif'],
+          },
+          colors: {
+            primary: {
+              light: '#6ee7b7', // emerald-300
+              DEFAULT: '#10b981', // emerald-500
+              dark: '#047857',  // emerald-700
+            },
+            secondary: {
+              light: '#7dd3fc', // sky-300
+              DEFAULT: '#38bdf8', // sky-400
+              dark: '#0ea5e9',  // sky-500
+            },
+            background: {
+              light: '#f9fafb', // gray-50
+              dark: '#111827'   // gray-900
+            },
+            card: {
+              light: '#ffffff', // white
+              dark: '#1f2937'   // gray-800
+            },
+            text: {
+              light: '#1f2937', // gray-800
+              dark: '#f3f4f6'   // gray-100
+            },
+            border: {
+              light: '#e5e7eb', // gray-200
+              dark: '#374151'   // gray-700
+            },
+            info: {
+              light: '#60a5fa', DEFAULT: '#3b82f6', dark: '#2563eb',
+              textLight: '#1e3a8a', textDark: '#dbeafe', bgLight: '#dbeafe', bgDark: '#1e3a8a',
+              borderLight: '#93c5fd', borderDark: '#1e40af',
+            },
+            success: {
+              light: '#4ade80', DEFAULT: '#22c55e', dark: '#16a34a',
+              textLight: '#14532d', textDark: '#dcfce7', bgLight: '#dcfce7', bgDark: '#14532d',
+              borderLight: '#86efac', borderDark: '#166534',
+            },
+            warning: {
+              light: '#facc15', DEFAULT: '#eab308', dark: '#ca8a04',
+              textLight: '#713f12', textDark: '#fefce8', bgLight: '#fefce8', bgDark: '#713f12',
+              borderLight: '#fde047', borderDark: '#422006',
+            },
+            error: {
+              light: '#f87171', DEFAULT: '#ef4444', dark: '#dc2626',
+              textLight: '#7f1d1d', textDark: '#fee2e2', bgLight: '#fee2e2', bgDark: '#7f1d1d',
+              borderLight: '#fca5a5', borderDark: '#991b1b',
+            }
+          },
+          boxShadow: {
+            'subtle': '0 4px 12px rgba(0,0,0,0.08)',
+            'subtle-dark': '0 4px 12px rgba(0,0,0,0.2)',
+            'interactive': '0 0 0 4px rgba(16, 185, 129, 0.3)', 
+            'interactive-dark': '0 0 0 4px rgba(110, 231, 183, 0.3)',
+            'top': '0 -2px 5px rgba(0,0,0,0.06)',
+            'top-md': '0 -4px 10px rgba(0,0,0,0.08)',
+            'top-lg': '0 -6px 15px rgba(0,0,0,0.1)',
+            'top-xl': '0 -10px 25px rgba(0,0,0,0.12)',
+            'top-strong': '0 -3px 8px rgba(0,0,0,0.12)', // For new bottom nav bar
+            'top-xlarge': '0 -8px 20px rgba(0,0,0,0.15)', // For new sliding panel
+          },
+          animation: {
+            'text-gradient-wave': 'text-gradient-wave 3s ease-out infinite alternate',
+            'shimmer': 'shimmer 3.5s ease-in-out infinite alternate',
+            'particle-move': 'particle-move 15s linear infinite alternate',
+          },
+          keyframes: {
+            'text-gradient-wave': {
+              '0%, 100%': { 'background-position': '0% 50%' },
+              '50%': { 'background-position': '100% 50%' },
+            },
+            'shimmer': {
+                '0%': { transform: 'translateX(-100%) skewX(-15deg)', opacity: '0' },
+                '20%': { opacity: '0.3' },
+                '80%': { opacity: '0.3' },
+                '100%': { transform: 'translateX(100%) skewX(-15deg)', opacity: '0' },
+            },
+            'particle-move': {
+              '0%': { transform: 'translateY(0) translateX(0) scale(1)', opacity: 0.6 },
+              '50%': { transform: 'translateY(-15px) translateX(8px) scale(1.05)', opacity: 0.3 },
+              '100%': { transform: 'translateY(0) translateX(0) scale(1)', opacity: 0.6 },
+            }
+          }
+        }
+      }
+    }
+  </script>
+<style>
+  html {
+    scroll-behavior: smooth;
+  }
+  body {
+    font-family: 'Nunito', sans-serif;
+    transition: background-color 0.3s ease-in-out, color 0.3s ease-in-out;
+  }
+  *:focus-visible {
+    outline: 2px solid theme('colors.primary.DEFAULT');
+    outline-offset: 2px;
+    border-radius: 2px; /* Slight rounding for the outline itself */
+  }
+  .dark *:focus-visible {
+    outline: 2px solid theme('colors.primary.light');
+  }
+
+  /* Text Gradient Animation */
+  .animate-text-gradient-wave {
+    background-size: 250% auto; /* Slower gradient shift */
+    animation: text-gradient-wave 3s ease-out infinite alternate; /* Slower and alternate */
+  }
+
+  /* Scrollbar Styling */
+  .no-scrollbar::-webkit-scrollbar { display: none; }
+  .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+
+  .custom-scrollbar::-webkit-scrollbar {
+    width: 8px;
+    height: 8px;
+  }
+  .custom-scrollbar::-webkit-scrollbar-track {
+    background: theme('colors.background.light');
+    border-radius: 4px;
+  }
+  .dark .custom-scrollbar::-webkit-scrollbar-track {
+    background: theme('colors.background.dark');
+  }
+  .custom-scrollbar::-webkit-scrollbar-thumb {
+    background: theme('colors.primary.light');
+    border-radius: 4px;
+    border: 2px solid theme('colors.background.light');
+  }
+  .dark .custom-scrollbar::-webkit-scrollbar-thumb {
+    background: theme('colors.primary.dark');
+     border: 2px solid theme('colors.background.dark');
+  }
+  .custom-scrollbar::-webkit-scrollbar-thumb:hover {
+    background: theme('colors.primary.DEFAULT');
+  }
+  .dark .custom-scrollbar::-webkit-scrollbar-thumb:hover {
+     background: theme('colors.primary.light');
+  }
+
+
+  /* Button Shimmer Effect (Refined) */
+  .button-shimmer {
+    position: relative;
+    overflow: hidden;
+  }
+  .button-shimmer::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 40%; 
+    height: 100%;
+    background: linear-gradient(to right, transparent 0%, rgba(255, 255, 255, 0.35) 50%, transparent 100%);
+    opacity: 0; 
+    transform: translateX(-100%) skewX(-15deg); /* Slightly less skew */
+    animation: shimmer 3.5s ease-in-out infinite alternate; /* Slower, smoother, and alternating */
+    animation-delay: var(--shimmer-delay, 0s);
+  }
+  .dark .button-shimmer::before {
+     background: linear-gradient(to right, transparent 0%, rgba(255, 255, 255, 0.15) 50%, transparent 100%);
+  }
+
+
+  /* Homepage Particle Background (Refined) */
+  .particle-background {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: -1; 
+    overflow: hidden;
+    pointer-events: none; /* Make sure particles don't interfere with clicks */
+  }
+
+  .particle {
+    position: absolute;
+    border-radius: 50%;
+    background-color: rgba(128, 128, 128, 0.15); /* More subtle */
+    animation-name: particle-move;
+    animation-timing-function: linear;
+    animation-iteration-count: infinite;
+    animation-direction: alternate;
+    will-change: transform, opacity; /* Performance hint */
+  }
+  .dark .particle {
+    background-color: rgba(200, 200, 200, 0.08); /* Even more subtle for dark mode */
+  }
+
+  /* Fade-in animation for modals and other elements */
+    @keyframes fadeIn {
+        from { opacity: 0; transform: scale(0.95) translateY(-10px); }
+        to { opacity: 1; transform: scale(1) translateY(0); }
+    }
+    .animate-fadeIn {
+        animation: fadeIn 0.3s ease-out forwards;
+    }
+    @keyframes fadeOut {
+        from { opacity: 1; transform: scale(1) translateY(0); }
+        to { opacity: 0; transform: scale(0.95) translateY(-10px); }
+    }
+    .animate-fadeOut {
+        animation: fadeOut 0.3s ease-out forwards;
+    }
+
+
+  /* Tooltip animation */
+  @keyframes tooltipFadeIn {
+    from { opacity: 0; transform: translateY(5px) scale(0.98); }
+    to { opacity: 1; transform: translateY(0) scale(1); }
+  }
+  .animate-tooltipFadeIn {
+    animation: tooltipFadeIn 0.2s ease-out forwards;
+  }
+</style>
+<script type="importmap">
+{
+  "imports": {
+    "react": "https://esm.sh/react@18.2.0",
+    "react-dom": "https://esm.sh/react-dom@18.2.0",
+    "react-dom/client": "https://esm.sh/react-dom@18.2.0/client",
+    "@google/genai": "https://esm.sh/@google/genai@1.4.0",
+    "react-dom/": "https://esm.sh/react-dom@18.2.0/",
+    "react/": "https://esm.sh/react@18.2.0/"
+  }
+}
+</script>
+<link rel="stylesheet" href="/index.css">
+</head>
+<body class="bg-background-light dark:bg-background-dark text-text-light dark:text-text-dark antialiased">
+  <noscript>You need to enable JavaScript to run this app.</noscript>
+  <div id="root"></div>
+  <script type="module" src="/index.tsx"></script>
+</body>
+</html>
